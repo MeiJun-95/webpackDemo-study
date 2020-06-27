@@ -3,21 +3,22 @@ const DllPlugin = require('webpack/lib/DllPlugin')
 const { srcPath, distPath } = require('./paths')
 
 module.exports = {
-  mode: 'development',
+  mode: 'development',  //一般开发环境使用，线上不必要
   // JS 执行入口文件
   entry: {
+    // 这个文件的目的是：预先打包react、react-dom，打包第三方插件，所以这里入口文件名这样设置
     // 把 React 相关模块的放到一个单独的动态链接库
     react: ['react', 'react-dom']
   },
   output: {
     // 输出的动态链接库的文件名称，[name] 代表当前动态链接库的名称，
     // 也就是 entry 中配置的 react 和 polyfill
-    filename: '[name].dll.js',
+    filename: '[name].dll.js',   //存放 ['react', 'react-dom']所有的文件
     // 输出的文件都放到 dist 目录下
     path: distPath,
     // 存放动态链接库的全局变量名称，例如对应 react 来说就是 _dll_react
     // 之所以在前面加上 _dll_ 是为了防止全局变量冲突
-    library: '_dll_[name]',
+    library: '_dll_[name]',    //输出的是一个第三方的库，就要配置一个library，这是一个全局变量名
   },
   plugins: [
     // 接入 DllPlugin
@@ -27,7 +28,7 @@ module.exports = {
       // 例如 react.manifest.json 中就有 "name": "_dll_react"
       name: '_dll_[name]',
       // 描述动态链接库的 manifest.json 文件输出时的文件名称
-      path: path.join(distPath, '[name].manifest.json'),
+      path: path.join(distPath, '[name].manifest.json'), //就是一个对.dll.js文件的索引
     }),
   ],
 }
