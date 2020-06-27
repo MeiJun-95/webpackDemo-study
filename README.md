@@ -98,11 +98,14 @@ webpack 性能优化-产出代码
 
 
 # Content-babel
- 1. 环境搭建 & 基本配置
- 2. babel-polyfill
- 3. babel-runtime
 
- 1. 环境搭建 & 基本配置
+babel主要内容：
+   1. 环境搭建 & 基本配置
+   2. babel-polyfill
+   3. babel-runtime
+
+
+1. 环境搭建 & 基本配置
     1. 环境搭建
     2. .babelrc 配置
         1. 需要配置 presets 和 plugins
