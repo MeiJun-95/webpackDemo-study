@@ -36,25 +36,25 @@ DLLPlugin 动态链接库插件
 webpack 优化构建速度
 
 可用于生产环境：
-    优化babel-loader
-    IgnorePlugin
-    noParse
-    happyPack
-    ParallelUglifyPlugin（一般不用在开发环境，没有必要）
+ 1. 优化babel-loader
+ 2. IgnorePlugin
+ 3. noParse
+ 4. happyPack
+ 5. ParallelUglifyPlugin（一般不用在开发环境，没有必要）
 
 不能用于生产环境！
-    自动刷新
-    热更新
-    DllPlugin
-
+ 1. 自动刷新
+ 2. 热更新
+ 3. DllPlugin
 
 
 webpack 性能优化-产出代码
-好处：
-    体积更小
-    合理分包，不重复加载
-    速度更快，内存使用更少
-方法：
+1. 好处：
+   1. 体积更小
+   2. 合理分包，不重复加载
+   3. 速度更快，内存使用更少
+   
+2. 方法：
     1. 小图片 base64 编码
     2. bundle + hash
     3. 懒加载 import 语法
