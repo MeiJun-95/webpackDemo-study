@@ -5,8 +5,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const HappyPack = require('happypack')     // 3.4 多进程打包
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
+const HappyPack = require('happypack')     // 3.4 HappyPack 多进程打包，改变babel-loader的配置
+const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')    // 3.5 ParallelUglifyPlugin 多进程压缩js 。1.webpack内置 Uglify 工具压缩js。2.但js是单线程，开启多线程压缩更快。3.和happyPack同理
 const webpackCommonConf = require('./webpack.common.js')
 const { srcPath, distPath } = require('./paths')
 
@@ -24,8 +24,8 @@ module.exports = smart(webpackCommonConf, {
             {
                 test: /\.js$/,
                 // 把对 .js 文件的处理转交给 id 为 babel 的 HappyPack 实例
-                use: ['happypack/loader?id=babel'],
-                include: srcPath,
+                use: ['happypack/loader?id=babel'],   //这个写法固定，id=babel 对应下面 plugins：new HappyPack 中的 id:'babel'
+                include: srcPath, 
                 // exclude: /node_modules/
             },
             // 图片 - 考虑 base64 编码的情况
@@ -79,18 +79,19 @@ module.exports = smart(webpackCommonConf, {
             filename: 'css/main.[contentHash:8].css'
         }),
 
-        // 3.2 忽略 moment 下的 /locale 目录  如果需要哪个语言包，再手动引入 ：import 'moment/locale/zh-cn'   //手动引入需要的语言包
+        // 3.2  IgnorePlugin：避免不必要的打包。     与 noParse 的比较： 直接不引入，代码中没有，减少产出体积。
+        // 忽略 moment 下的 /locale 目录  如果需要哪个语言包，再手动引入 ：import 'moment/locale/zh-cn'   //手动引入需要的语言包
         new webpack.IgnorePlugin(/\.\/locale/, /moment/),
 
-        // happyPack 开启多进程打包
+        // 3.4 happyPack 开启多进程打包 。       可放在common环境中
         new HappyPack({
             // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
             id: 'babel',
             // 如何处理 .js 文件，用法和 Loader 配置中一样
-            loaders: ['babel-loader?cacheDirectory']
-        }),
+            loaders: ['babel-loader?cacheDirectory']     
+        }),                                                //这样配置之后，babel打包就开启了多线程
 
-        // 使用 ParallelUglifyPlugin 并行压缩输出的 JS 代码
+        // 3.5 使用 ParallelUglifyPlugin 并行压缩输出的 JS 代码 。   只能放在prod环境中
         new ParallelUglifyPlugin({
             // 传递给 UglifyJS 的参数
             // （还是使用 UglifyJS 压缩，只不过帮助开启了多进程）

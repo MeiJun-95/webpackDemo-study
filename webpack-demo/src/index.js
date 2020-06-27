@@ -2,8 +2,6 @@
 import './style/style1.css'
 import './style/style2.less'
 
-import { sum } from './math'  //公共模块
-
 import _ from 'lodash'   //71k (gzipped:24k)     引入第三方模块
 console.log(_.each)
 
@@ -13,10 +11,11 @@ import 'moment/locale/zh-cn'   //手动引入需要的语言包 ；  在prod环�
 moment.locale('zh-cn')   //设置语言为中文
 console.log('locale',moment.locale()) 
 console.log('date',moment().format('li'))  //2020年xx月xx日
-  
 
-const sumRes = sum(10, 20)
-console.log('sumRes', sumRes)
+
+import { sum } from './math'  //公共模块 
+const sumRes = sum(10, 40)    //如果在这里改变sum参数，是在热更新之外更改，是自动刷新形式
+console.log('sumRes', sumRes)   
 
 
 
@@ -41,10 +40,10 @@ setTimeout(() => {
     },1500)
 })
 
-// // 增加，开启热更新之后的代码逻辑
-// if (module.hot) {
-//     module.hot.accept(['./math'], () => {
-//         const sumRes = sum(10, 30)
-//         console.log('sumRes in hot', sumRes)
-//     })
-// }
+// 增加，开启热更新之后的代码逻辑
+if (module.hot) {   //如果webpack开启了热更新
+    module.hot.accept(['./math'], () => {  //允许哪些模块进行热更新的监听，如果这些模块改变，调用回调函数。如果在模块之外改变，还是自动刷新形式
+        const sumRes = sum(10, 30)
+        console.log('sumRes in hot', sumRes)
+    })
+}

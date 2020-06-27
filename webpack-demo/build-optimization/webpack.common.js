@@ -20,15 +20,11 @@ module.exports = {
     },
     module: {
         rules: [
-            //3.1 优化 babel-loader
             {
-                test:/\.js$/,
-                loader:['babel-loader?cacheDirectory'],   //开启缓存
-                include:srcPath,      //明确范围
-                // exclude:/node-modules/    //排除范围，include和 exclude 两者选一个即可
-            
+                // babel-loader
             }
         ],
+        // 3.3 noParse：避免重复打包。   与 IgnorePlugin 的比较：引入，但不打包
         // 独立完整的'react.min.js' 文件就不用采用模块化
         // 忽略对 'react.min.js' 文件的递归解析处理
         noParse:[/react\.min\.js$/]
