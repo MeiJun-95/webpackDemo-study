@@ -105,6 +105,7 @@ babel主要内容：
    3. babel-runtime
 
 
+详细介绍：
 1. 环境搭建 & 基本配置
     1. 环境搭建
     2. .babelrc 配置
