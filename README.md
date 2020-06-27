@@ -97,4 +97,26 @@ webpack 性能优化-产出代码
 
 
 
+# Content-babel
+ 1. 环境搭建 & 基本配置
+ 2. babel-polyfill
+ 3. babel-runtime
 
+ 1. 环境搭建 & 基本配置
+    1. 环境搭建
+    2. .babelrc 配置
+        1. 需要配置 presets 和 plugins
+    3. presets 和 plugins
+        1. babel通过plugin进行语法转换。
+        2. presets-env（包含ES6/7/8常用语法）是常用的plugin的集合，可以日常满足，如果需要个别plugin，在plugins里扩展
+
+2. babel-polyfill
+    1. 什么是 polyfill
+        某浏览器不支持某个新的API，找到这个API的polyfill，根据浏览器的情况，做一个补丁/兼容
+    2. core-js 和 regenerator
+        1. core-js：是一个标准库，集成了所有新语法（ES6/7/8）的polyfill。 但不支持 ES6 generator 函数（处理异步)   
+        2. regenerator：处理 ES6 generator 函数的语法转换
+    3. babel-polyfill 就是两者的集合。做的东西就是引入这两个库。
+        1. Babel 7.4 之后弃用 babel-polyfill
+        2. 推荐直接使用 core-js 和 regenerator
+        3. 但不影响面试中的考察
