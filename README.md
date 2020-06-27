@@ -14,7 +14,7 @@ npm run build
 
 
 
-# Content
+# Content-webpack
 
 
 
@@ -120,3 +120,25 @@ webpack 性能优化-产出代码
         1. Babel 7.4 之后弃用 babel-polyfill
         2. 推荐直接使用 core-js 和 regenerator
         3. 但不影响面试中的考察
+    4. 使用方法：
+        1. 在 .babelrc 的 presets 中配置 "@babel/preset-env",
+        2. 按需加载：在 .babelrc 的 presets 中配置
+            {
+                "useBuiltIns": "usage",   // babel-polyfill 按需引入
+                "corejs": 3 // corejs 的版本号
+            }
+    5. 问题：
+        1. 文件过大，需要按需加载。在 .babelrc 的 presets 中配置：
+            {
+                "useBuiltIns": "usage",   // babel-polyfill 按需引入
+                "corejs": 3 // corejs 的版本号
+            }
+        2. 会污染全局环境。给关键字打补丁，要有以下定义：window.Promise = function() {}
+            1. 使用 babel-runtime 解决问题
+
+3.  babel-runtime
+    1. 作用：为兼容的API重新取名字
+ 
+4. babel-polyfill 与 babel-runtime 的区别：
+    1. babel-polyfill 会污染全局环境
+    2. babel-runtime会重新取变量名，不会污染环境
