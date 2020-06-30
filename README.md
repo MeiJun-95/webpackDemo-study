@@ -108,15 +108,17 @@ babel主要内容：
 详细介绍：
 1. 环境搭建 & 基本配置
     1. 环境搭建
-    2. .babelrc 配置
+        1. 命令行转码： babel-cli  在转码时执行： npm run build
+    2. 配置文件： .babelrc 
         1. 需要配置 presets 和 plugins
-    3. presets 和 plugins
-        1. babel通过plugin进行语法转换。
+    3. presets 和 plugins （转码规则、插件）
+        1. babel通过presets 字段设定转码规则。（官方提供）
         2. presets-env（包含ES6/7/8常用语法）是常用的plugin的集合，可以日常满足，如果需要个别plugin，在plugins里扩展
 
 2. babel-polyfill
     1. 什么是 polyfill
-        某浏览器不支持某个新的API，找到这个API的polyfill，根据浏览器的情况，做一个补丁/兼容
+        1. babel 默认只转换新的js句法，不转换新的API（Generator、Set、Map、Proxy、Promise、Symbol等全局对象，以及一些定义在全局对象上的方法（Object.assign）都不会转码。
+        2. 为了让某浏览器支持某个新的API，找到这个API的polyfill，根据浏览器的情况，做一个补丁/兼容
     2. core-js 和 regenerator
         1. core-js：是一个标准库，集成了所有新语法（ES6/7/8）的polyfill。 但不支持 ES6 generator 函数（处理异步)   
         2. regenerator：处理 ES6 generator 函数的语法转换
@@ -125,12 +127,8 @@ babel主要内容：
         2. 推荐直接使用 core-js 和 regenerator
         3. 但不影响面试中的考察
     4. 使用方法：
-        1. 在 .babelrc 的 presets 中配置 "@babel/preset-env",
-        2. 按需加载：在 .babelrc 的 presets 中配置
-            {
-                "useBuiltIns": "usage",   // babel-polyfill 按需引入
-                "corejs": 3 // corejs 的版本号
-            }
+        1. 安装插件  npm install --save babel-polyfill
+        2. 在脚本头部加入： import '@babel/polyfill'
     5. 问题：
         1. 文件过大，需要按需加载。在 .babelrc 的 presets 中配置：
             {
