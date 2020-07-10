@@ -10,7 +10,7 @@ webpack基本配置：
 */
 
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')  // html-webpack-plugin 会在打包结束后，自动生成一个 html 文件,并把打包生成的 js 自动引入到 HTML 中。
 const { srcPath, distPath } = require('./paths')
 
 module.exports = {
@@ -33,23 +33,23 @@ module.exports = {
             // {
             //     test: /\.css$/,
             //     // loader 的执行顺序是：从后往前（知识点）
-            //     loader: ['style-loader', 'css-loader']// 1、'css-loader' 以.css结尾的文件，可以解析出css文件。2、'style-loader'：将css插入页面中
+            //     loader: ['style-loader', 'css-loader']// 1、'css-loader' 以.css结尾的文件，可以解析出css文件。2、'style-loader'：将这段样式挂在到 header 标签中
             // },
             {
                 //处理样式
                 test: /\.css$/,
-                // loader 的执行顺序是：从后往前
+                // loader 的执行顺序是：从后往前                               厂商前缀 postcss-loader
                 loader: ['style-loader', 'css-loader', 'postcss-loader'] // 加了 postcss：为了添加浏览器兼容性（浏览器前缀）需要配置 postcss.config.js 文件
             },
             {
                 test: /\.less$/,
-                // 增加 'less-loader' ，注意顺序
-                loader: ['style-loader', 'css-loader', 'less-loader']
+                // 增加 'less-loader' ，注意顺序  
+                loader: ['style-loader', 'css-loader', 'less-loader']    // 一种文件多个Loader就使用数组
             }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
+        new HtmlWebpackPlugin({  
             template: path.join(srcPath, 'index.html'),//将这条路径输出到 'index.html' 文件中
             filename: 'index.html'
         })

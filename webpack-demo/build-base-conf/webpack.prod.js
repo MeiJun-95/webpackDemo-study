@@ -62,7 +62,7 @@ module.exports = smart(webpackCommonConf, {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(), // 会默认清空 output.path 文件夹
+        new CleanWebpackPlugin(), // 帮助打包时先清空 dist 目录 (output.path 文件夹 )
         new webpack.DefinePlugin({
             // window.ENV = 'production'
             ENV: JSON.stringify('production')
