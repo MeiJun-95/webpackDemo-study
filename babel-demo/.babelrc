@@ -1,7 +1,7 @@
 {
     "presets": [
         [
-            "@babel/preset-env",
+            "@babel/preset-env",  //preset-env 包含当前所有 ES标准的最新特性
             {
                 "useBuiltIns": "usage",   // babel-polyfill 按需引入
                 "corejs": 3 // corejs 的版本号

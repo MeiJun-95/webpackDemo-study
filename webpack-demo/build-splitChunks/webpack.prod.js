@@ -27,13 +27,14 @@ module.exports = smart(webpackCommonConf, {
                         // 小于 5kb 的图片用 base64 格式产出
                         // 否则，依然延用 file-loader 的形式，产出 url 格式
                         limit: 5 * 1024,
-
+                        // fallback:'file-loader',  //否则，依然延用 file-loader 的形式，默认值就是 file-loader，所以这个配置项可以不写
                         // 打包到 img 目录下
                         outputPath: '/img1/',
 
                         // 设置图片的 cdn 地址（也可以统一在外面的 output 中设置，那将作用于所有静态资源）
                         // publicPath: 'http://cdn.abc.com'
                     }
+                    // 这两种加载图片的方法，同样适用于其他二进制类型的资源（PDF、SWF等）
                 }
             },
             // 抽离 css

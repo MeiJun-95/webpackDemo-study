@@ -113,7 +113,7 @@ babel主要内容：
         1. 需要配置 presets 和 plugins
     3. presets 和 plugins （转码规则、插件）
         1. babel通过presets 字段设定转码规则。（官方提供）
-        2. presets-env（包含ES6/7/8常用语法）是常用的plugin的集合，可以日常满足，如果需要个别plugin，在plugins里扩展
+        2. presets-env（包含ES5/6/7/8常用语法）是常用的plugin的集合，可以日常满足，如果需要个别plugin，在plugins里扩展
 
 2. babel-polyfill
     1. 什么是 polyfill

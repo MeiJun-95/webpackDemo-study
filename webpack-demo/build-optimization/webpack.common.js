@@ -27,7 +27,7 @@ module.exports = {
         // 3.3 noParse：避免重复打包。   与 IgnorePlugin 的比较：引入，但不打包
         // 独立完整的'react.min.js' 文件就不用采用模块化
         // 忽略对 'react.min.js' 文件的递归解析处理
-        noParse:[/react\.min\.js$/]
+        noParse:[/react\.min\.js$/]          //可选的配置项，类型为RegExp [RegExp] function中的一种
     },
     plugins: [
         // new HtmlWebpackPlugin({

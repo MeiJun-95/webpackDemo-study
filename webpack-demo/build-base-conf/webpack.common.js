@@ -45,6 +45,11 @@ module.exports = {
                 test: /\.less$/,
                 // 增加 'less-loader' ，注意顺序  
                 loader: ['style-loader', 'css-loader', 'less-loader']    // 一种文件多个Loader就使用数组
+            },
+            {
+                test: /\.sass$/,
+                // 增加 'less-loader' ，注意顺序  
+                loader: ['style-loader', 'css-loader', 'sass-loader']    // 一种文件多个Loader就使用数组
             }
         ]
     },
